@@ -5,7 +5,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -19,31 +23,28 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-@Table(name = "StudentTable")
+@Table(name = "CourseTable")
 @Entity
-public class Student {
+public class Course {
 	@Setter(value = AccessLevel.NONE)
-	@Column(name = "Ids")
+	@Column(name = "Idc")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long ids;
+	private long idc;
 	
 	@NotNull
-	@Pattern(regexp = "[A-Z]{1}[a-z]" )
-	@Size(min = 2, max = 10)
-	@Column(name = "name")
-	private String name;
+	@Pattern(regexp = "[A-Za-z] +" )
+	@Size(min = 5, max = 20)
+	@Column(name = "Title")
+	private String Title;
 	
-	@NotNull
-	@Pattern(regexp = "[A-Z]{1}[a-z]" )
-	@Size(min = 2, max = 20)
-	@Column(name = "surname")
-	private String surname;
+	@Min(1)
+	@Max(20)
+	@Column(name = "Creditpoints")
+	public int creditpoints;
+
 	
-	@NotNull
-	private Degree degree;
-	public Student(String name, String Surname, Degree degree) {
-		setName(name);
-		setSurname(surname);
-	}
+	@OneToOne
+	@JoinColumn(name = "Idp")
+	private Professor professor;
 }

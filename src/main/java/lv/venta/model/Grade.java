@@ -36,8 +36,17 @@ public class Grade {
 	private int grvalue;
 	
 	@ManyToOne
-	@JoinColumn(mappedBy = "Ids")
+	@JoinColumn(name = "Ids")
 	private Student student;
 	
+	@ManyToOne
+	@JoinColumn(name = "Idc")
+	private Course course;
 
+	public Grade(int grvalue, int creditpoints, Professor professor)
+	{
+		setgrvalue(grvalue);
+		setCreditpoints(creditpoints);
+		setProfessor(professor);
+	}
 }
